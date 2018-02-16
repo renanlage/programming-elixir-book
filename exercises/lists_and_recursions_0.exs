@@ -8,7 +8,7 @@ defmodule MyList do
   end
 end
 
-defmodule MyListAccumulator do
+defmodule MyListTailCall do
   def sum(list), do: _sum(0, list)
 
   defp _sum(total, []), do: total
@@ -19,9 +19,9 @@ IO.puts(MyList.sum([]) == 0)
 IO.puts(MyList.sum([20]) == 20)
 IO.puts(MyList.sum([10, 1, 15]) == 26)
 
-IO.puts(MyListAccumulator.sum([]) == 0)
-IO.puts(MyListAccumulator.sum([20]) == 20)
-IO.puts(MyListAccumulator.sum([10, 1, 15]) == 26)
+IO.puts(MyListTailCall.sum([]) == 0)
+IO.puts(MyListTailCall.sum([20]) == 20)
+IO.puts(MyListTailCall.sum([10, 1, 15]) == 26)
 
 IO.puts(MyList.reduce([1, 2, 3, 4], 100, &(&1 + &2)) == 110)
 IO.puts(MyList.reduce([1, 2, 3, 4], 1, fn(x, acc) -> acc * x end) == 24)
