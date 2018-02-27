@@ -11,6 +11,15 @@ defmodule MyEnum do
     each(tail, func)
   end
 
+  # split functions
+  def split(list, count)
+  def split([], _count), do: {[], []}
+  def split(list, count) when count <= 0, do: {[], list}
+  def split([head | tail], count) do
+    {first, second} = split(tail, count - 1)
+    {[head | first], second}
+  end
+
   # take functions
   def take(list, amount) when list == [] or amount == 0, do: []
   def take([head | tail], amount) do
@@ -37,8 +46,16 @@ IO.puts(MyEnum.take([1,2,3,4,5,6], 3) == [1,2,3])
 IO.puts(MyEnum.take([1,2], 3) == [1,2])
 IO.puts(MyEnum.take([1,2], 0) == [])
 
+IO.puts(MyEnum.split([1,2,3,4], 0) == {[], [1,2,3,4]})
+IO.puts(MyEnum.split([1,2,3,4], 1) == {[1], [2,3,4]})
+IO.puts(MyEnum.split([1,2,3,4], 3) == {[1,2,3], [4]})
+IO.puts(MyEnum.split([1,2,3,4], 4) == {[1,2,3,4], []})
+IO.puts(MyEnum.split([1,2,3,4], 5) == {[1,2,3,4], []})
+IO.puts(MyEnum.split([1,2,3,4], -10) == {[], [1,2,3,4]})
+
 
 defmodule MyEnumTailCall do
+  # all functions
   def all?(list, func \\ fn x -> !!x end) do
     _all?(list, func, true)
   end
@@ -48,7 +65,16 @@ defmodule MyEnumTailCall do
     _all?(tail, func, all_true && !!func.(head))
   end
 
-  # Take functions
+  # split functions
+  def split(list, count), do: _split([], list, count)
+  defp _split(front, tail, count)
+    when tail == [] or count <= 0,
+    do: {Enum.reverse(front), tail}
+  defp _split(front, [head | tail], count) do
+    _split([head | front], tail, count - 1)
+  end
+
+  # take functions
   def take(list, amount), do: _take(list, amount, [])
   defp _take(list, amount, slice) when list == [] or amount == 0, do: Enum.reverse(slice)
   defp _take([head | tail], amount, slice), do: _take(tail, amount - 1, [head | slice])
@@ -64,3 +90,10 @@ IO.puts(MyEnumTailCall.take([], 10) == [])
 IO.puts(MyEnumTailCall.take([1,2,3,4,5,6], 3) == [1,2,3])
 IO.puts(MyEnumTailCall.take([1,2], 3) == [1,2])
 IO.puts(MyEnumTailCall.take([1,2], 0) == [])
+
+IO.puts(MyEnumTailCall.split([1,2,3,4], 0) == {[], [1,2,3,4]})
+IO.puts(MyEnumTailCall.split([1,2,3,4], 1) == {[1], [2,3,4]})
+IO.puts(MyEnumTailCall.split([1,2,3,4], 3) == {[1,2,3], [4]})
+IO.puts(MyEnumTailCall.split([1,2,3,4], 4) == {[1,2,3,4], []})
+IO.puts(MyEnumTailCall.split([1,2,3,4], 5) == {[1,2,3,4], []})
+IO.puts(MyEnumTailCall.split([1,2,3,4], -10) == {[], [1,2,3,4]})
