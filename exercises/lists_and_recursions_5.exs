@@ -26,6 +26,17 @@ defmodule MyEnum do
     [head | take(tail, amount - 1)]
   end
 
+  # filter functions
+  def filter(list, func \\ &(!!&1))
+  def filter([], _func), do: []
+  def filter([head | tail], func) do
+    if func.(head) do
+      [head | filter(tail, func)]
+    else
+      filter(tail, func)
+    end
+  end
+
   # Reverse functions
   def reverse(list), do: _reverse(list, [])
   defp _reverse([], reversed), do: reversed
@@ -54,6 +65,13 @@ IO.puts(MyEnum.split([1,2,3,4], 5) == {[1,2,3,4], []})
 IO.puts(MyEnum.split([1,2,3,4], -10) == {[], [1,2,3,4]})
 
 
+IO.puts(MyEnum.filter([false,true,1,2,false,3,4]) == [true,1,2,3,4])
+IO.puts(MyEnum.filter([]) == [])
+IO.puts(MyEnum.filter([false]) == [])
+IO.puts(MyEnum.filter([1,2,3]) == [1,2,3])
+IO.puts(MyEnum.filter([1,2,3], &(!&1)) == [])
+
+
 defmodule MyEnumTailCall do
   # all functions
   def all?(list, func \\ fn x -> !!x end) do
@@ -78,6 +96,17 @@ defmodule MyEnumTailCall do
   def take(list, amount), do: _take(list, amount, [])
   defp _take(list, amount, slice) when list == [] or amount == 0, do: Enum.reverse(slice)
   defp _take([head | tail], amount, slice), do: _take(tail, amount - 1, [head | slice])
+
+  # filter functions
+  def filter(list, func \\ &(!!&1)), do: _filter(list, func, [])
+  def _filter([], _func, acc), do: Enum.reverse(acc)
+  def _filter([head | tail], func, acc) do
+    if func.(head) do
+      _filter(tail, func, [head | acc])
+    else
+      _filter(tail, func, acc)
+    end
+  end
 end
 
 IO.puts(MyEnumTailCall.all?([true, 1, "something"]) == true)
@@ -97,3 +126,9 @@ IO.puts(MyEnumTailCall.split([1,2,3,4], 3) == {[1,2,3], [4]})
 IO.puts(MyEnumTailCall.split([1,2,3,4], 4) == {[1,2,3,4], []})
 IO.puts(MyEnumTailCall.split([1,2,3,4], 5) == {[1,2,3,4], []})
 IO.puts(MyEnumTailCall.split([1,2,3,4], -10) == {[], [1,2,3,4]})
+
+IO.puts(MyEnumTailCall.filter([false,true,1,2,false,3,4]) == [true,1,2,3,4])
+IO.puts(MyEnumTailCall.filter([]) == [])
+IO.puts(MyEnumTailCall.filter([false]) == [])
+IO.puts(MyEnumTailCall.filter([1,2,3]) == [1,2,3])
+IO.puts(MyEnumTailCall.filter([1,2,3], &(!&1)) == [])
