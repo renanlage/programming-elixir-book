@@ -6,17 +6,16 @@ defmodule StringsAndBinaries5 do
     strings
     |> Enum.zip(lengths)
     |> Enum.map(fn { string, length } ->
-      _pad({string, length}, max_length - length)
+      _pad({string, length}, max_length)
     end)
   end
 
-  defp _pad({string, length}, amount) do
-    left_padding = div(amount, 2)
-    right_padding = amount - left_padding
+  defp _pad({string, length}, max_length) do
+    left_padding = div(max_length - length, 2)
 
     string
     |> String.pad_leading(length + left_padding)
-    |> String.pad_trailing(length + left_padding + right_padding)
+    |> String.pad_trailing(max_length)
   end
 end
 
