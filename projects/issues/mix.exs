@@ -16,8 +16,7 @@ defmodule Issues.Mixfile do
     [
       extra_applications: [
         :logger,
-        :httpoison,
-        :poison
+        :httpoison
       ]
     ]
   end
@@ -25,7 +24,8 @@ defmodule Issues.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpoison, "~> 0.9"}
+      {:httpoison, "~> 1.0"},
+      {:poison, "~> 3.1"}
     ]
   end
 end
