@@ -14,8 +14,9 @@ defmodule Stack.Mixfile do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
-      mod: {Stack.Application, []}
+      mod: {Stack, []},
+      env: [initial_stack: [1, "cat", 5]],
+      registered: [Stack.Server]
     ]
   end
 
