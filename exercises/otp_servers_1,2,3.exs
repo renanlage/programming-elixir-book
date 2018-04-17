@@ -11,10 +11,10 @@ defmodule Stack.Server do
 end
 
 
-{ :ok, pid } = GenServer.start_link(Stack.Server, [5, "cat", 9])
+{ :ok, pid } = GenServer.start_link(Stack.Server, [5, "cat", 9], name: :stack)
 IO.puts GenServer.call(pid, :pop) == 5
-IO.puts GenServer.call(pid, :pop) == "cat"
+IO.puts GenServer.call(:stack, :pop) == "cat"
 
 GenServer.cast(pid, {:push, "dog"})
-IO.puts GenServer.call(pid, :pop) == "dog"
-IO.puts GenServer.call(pid, :pop) == 9
+IO.puts GenServer.call(:stack, :pop) == "dog"
+IO.puts GenServer.call(:stack, :pop) == 9
