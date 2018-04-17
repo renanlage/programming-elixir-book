@@ -4,7 +4,7 @@ defmodule Sequence.Mixfile do
   def project do
     [
       app: :sequence,
-      version: "0.1.2",
+      version: "0.1.3",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
       deps: deps()
@@ -15,7 +15,7 @@ defmodule Sequence.Mixfile do
   def application do
     [
       mod: {Sequence, []},
-      env: [initial_number: 456],
+      env: [initial_number: 456, initial_delta: 1],
       registered: [Sequence.Server]
     ]
   end

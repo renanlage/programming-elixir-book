@@ -7,6 +7,7 @@ defmodule Sequence do
 
   def start(_type, _args) do
     initial_number = Application.get_env(:sequence, :initial_number)
-    {:ok, _pid} = Sequence.Supervisor.start_link(initial_number)
+    initial_delta = Application.get_env(:sequence, :initial_delta)
+    {:ok, _pid} = Sequence.Supervisor.start_link(initial_number, initial_delta)
   end
 end

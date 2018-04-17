@@ -25,8 +25,11 @@ defmodule Sequence.Server do
   # GenServer implementation
 
   def init(stash_pid) do
-    current_number = Sequence.Stash.get_value stash_pid
-    {:ok, %State{current_number: current_number, stash_pid: stash_pid}}
+    {initial_number, initial_delta} = Sequence.Stash.get_value stash_pid
+    {:ok, %State{
+      current_number: initial_number,
+      delta: initial_delta,
+      stash_pid: stash_pid}}
   end
 
   def handle_call(:next_number, _from, state) do
@@ -41,7 +44,9 @@ defmodule Sequence.Server do
   end
 
   def terminate(_reason, state) do
-    Sequence.Stash.save_value state.stash_pid, state.current_number
+    Sequence.Stash.save_value(
+      state.stash_pid,
+      {state.current_number, state.delta})
   end
 
   def code_change("0", old_state = { current_number, stash_pid }, _extra) do
@@ -55,6 +60,8 @@ defmodule Sequence.Server do
     Logger.info inspect(new_state)
     {:ok, new_state}
   end
+
+  def code_change(_, state, _extra), do: {:ok, state}
 
   def format_status(_reason, [_pdit, state]) do
     [data: [{'State', "My Current state is '#{inspect state}', and I'm Happy"}]]
