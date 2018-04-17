@@ -1,0 +1,18 @@
+%% coding: utf-8
+[{release,"sequence","0.1.2","9.2",
+          [{kernel,"5.4.1","./lib/kernel-5.4.1"},
+           {stdlib,"3.4.3","./lib/stdlib-3.4.3"},
+           {getopt,"1.0.1","./lib/getopt-1.0.1"},
+           {providers,"1.7.0","./lib/providers-1.7.0"},
+           {bbmustache,"1.0.4","./lib/bbmustache-1.0.4"},
+           {cf,"0.2.2","./lib/cf-0.2.2"},
+           {erlware_commons,"1.0.5","./lib/erlware_commons-1.0.5"},
+           {relx,"3.24.4","./lib/relx-3.24.4"},
+           {compiler,"7.1.4","./lib/compiler-7.1.4"},
+           {elixir,"1.5.2","./lib/elixir-1.5.2"},
+           {logger,"1.5.2","./lib/logger-1.5.2"},
+           {exrm,"1.0.8","./lib/exrm-1.0.8"},
+           {sequence,"0.1.2","./lib/sequence-0.1.2"},
+           {iex,"1.5.2","./lib/iex-1.5.2"},
+           {sasl,"3.1.1","./lib/sasl-3.1.1"}],
+          permanent}].

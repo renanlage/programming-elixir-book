@@ -1,0 +1,10 @@
+{application,bbmustache,
+             [{description,"Binary pattern match Based Mustache template engine for Erlang/OTP"},
+              {vsn,"1.0.4"},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {contributors,["Hinagiku Soranoba"]},
+              {licenses,["MIT"]},
+              {links,[{"GitHub","https://github.com/soranoba/bbmustache"}]},
+              {env,[]},
+              {modules,[bbmustache]}]}.
