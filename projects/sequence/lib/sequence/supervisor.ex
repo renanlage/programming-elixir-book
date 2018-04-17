@@ -2,7 +2,7 @@ defmodule Sequence.Supervisor do
   use Supervisor
 
   def start_link(initial_number) do
-    result = {:ok, sup} = Supervisor.start_link(__MODULE__, [initial_number])
+    result = {:ok, sup} = Supervisor.start_link(__MODULE__, initial_number)
     start_workers(sup, initial_number)
     result
   end
