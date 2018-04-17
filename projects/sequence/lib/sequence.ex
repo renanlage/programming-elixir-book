@@ -1,18 +1,12 @@
 defmodule Sequence do
-  @moduledoc """
-  Documentation for Sequence.
-  """
+  # See https://hexdocs.pm/elixir/Application.html
+  # for more information on OTP Applications
+  @moduledoc false
 
-  @doc """
-  Hello world.
+  use Application
 
-  ## Examples
-
-      iex> Sequence.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def start(_type, _args) do
+    initial_number = Application.get_env(:sequence, :initial_number)
+    {:ok, _pid} = Sequence.Supervisor.start_link(initial_number)
   end
 end
